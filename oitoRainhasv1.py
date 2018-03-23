@@ -120,9 +120,9 @@ def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama 
     filhos = [];
     parents = selectParents(popI);
     parentsB = intToBinPop(parents);
-    filhosB = intToBinPop(filhos); ## fazer crossover e mutacao com a representacao binaria
-    filhosB = crossOver(parentsB); ## A implementar
-    filhosB = mutation(filhosB);   ## A implementar
+    filhosB = intToBinPop(filhos);
+    filhosB = crossOver(parentsB);
+    filhosB = mutation(filhosB);
     filhos = binToIntPop(filhosB);
 
 
@@ -174,7 +174,7 @@ def crossOver(parents): #### DONE ####
 
     return filhos;
 
-def mutation(filhos): #### A ser implementado ####
+def mutation(filhos):
     mutationChance =0.1;
     filhosM = filhos;
     for e in filhosM:
@@ -185,8 +185,8 @@ def mutation(filhos): #### A ser implementado ####
 
     return filhosM;
 
-def selecaoPop(popI, filhos):#### A ser implementado ####
-    ## funcao deve acomodar filhos na populacao e retirar os piores individuos ate que restem 100 individuos na populacao
+def selecaoPop(popI, filhos):
+    ## funcao acomoda filhos na populacao e retirar os piores individuos ate que restem 100 individuos na populacao
     global numAvalFitness;
     popRanked = sorted(popI+filhos, key=fitness);#populacao com 102 individuos ordenados pelo fitness
     numAvalFitness-=100;# reducao para compensar os fitness recalculados dos 100 individuos da populacao
@@ -221,7 +221,4 @@ def main(): ##popB -> populacao no formato binario, popI -> populacao no formato
     print("|||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0]);
     return;
 
-
-
-### funcoes de conversao de inteiro para binario e binario para inteiro implementadas mais em cima
 main();
