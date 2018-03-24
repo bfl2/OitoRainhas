@@ -2,9 +2,11 @@ import operator;
 import random;
 import numpy;
 from numpy import sum;
+import pygame, sys
+from pygame.locals import *
 
 # ------# Variaveis Globais
-numAvalFitness = 0;  # condicao de parada, 10.000 avaliacoes de fitness
+numAvalFitness = 0;  # condicao de parada, 10.000 avaliacoes de fitness ou individuo com fitness 1 encontrado
 maxFitness =0;
 
 def bin3Gen(num):
@@ -194,6 +196,40 @@ def selecaoPop(popI, filhos):
     popSel = popRanked[:-2];# populacao com a retirada dos 2 piores individuos
     return popSel;
 
+def displayChessBoard(chessBoard):
+    WHITE = [255, 255, 255];
+    GRAY = (100, 100, 100);
+    BLACK = (0, 0, 0);
+    RED = (255,0,0);
+    pygame.init();
+    tileSize = 50;
+    offsetx = 200;
+    offsety = 50;
+    DISPLAY = pygame.display.set_mode((800, 600), 0, 32);
+
+    DISPLAY.fill(GRAY)
+    for x in range(0, 8):
+        for y in range(0, 8):
+            if (x + y) % 2 == 0:
+                cor = WHITE;
+            else:
+                cor = BLACK;
+            pygame.draw.rect(DISPLAY, cor, (offsetx + x * tileSize, offsety + y * tileSize, tileSize, tileSize))
+            pygame.display.update();
+    for y in chessBoard:
+        x = chessBoard.index(y);
+        pygame.draw.circle(DISPLAY,RED,(offsetx + 25 + x*tileSize,offsety + 25 +y*tileSize),25,0);
+
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
+
+    return;
+
 def main(): ##popB -> populacao no formato binario, popI -> populacao no formato inteiro
     ##Inicializacao da populacao
     global numAvalFitness;
@@ -219,6 +255,9 @@ def main(): ##popB -> populacao no formato binario, popI -> populacao no formato
             condicaoParada = True;
             displayPop(populationI);
     print("|||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0]);
+    displayChessBoard(populationI[0]);
     return;
 
 main();
+
+### funcoes para dar display no tabuleiro
