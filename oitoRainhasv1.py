@@ -117,6 +117,14 @@ def fitness(indiv):
     maxFitness = max(maxFitness, fit);
 
     return fit;
+def getFitnessAvg(pop):
+    fitList =[];
+    global numAvalFitness;
+    for e in pop:
+        fitList.append(fitness(e));
+        numAvalFitness-=1; ##desconsiderar o calculo de fitness refeito
+    avg = sum(fitList)/len(fitList);
+    return avg;
 
 def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama funcoes de selecao de pais, crossover e mutacao
     filhos = [];
@@ -206,7 +214,7 @@ def displayChessBoard(chessBoard):
     offsetx = 200;
     offsety = 50;
     DISPLAY = pygame.display.set_mode((800, 600), 0, 32);
-
+    pygame.display.set_caption('Problema das Oito Rainhas');
     DISPLAY.fill(GRAY)
     for x in range(0, 8):
         for y in range(0, 8):
@@ -233,6 +241,7 @@ def displayChessBoard(chessBoard):
 def main(): ##popB -> populacao no formato binario, popI -> populacao no formato inteiro
     ##Inicializacao da populacao
     global numAvalFitness;
+    limiteAval = 10000;
     condicaoParada = False;
     populationSize = 100;
     numGeracoes = 1;
@@ -249,9 +258,10 @@ def main(): ##popB -> populacao no formato binario, popI -> populacao no formato
     while (condicaoParada != True):
         filhos = geraFilhos(populationI);
         populationI = selecaoPop(populationI,filhos);
-        print("   geracao: ", numGeracoes, "max Fitness: ", maxFitness, "Num aval: ", numAvalFitness);
+        avgFitness = getFitnessAvg(populationI);
+        print("   geracao: ", numGeracoes, "max Fitness: ",maxFitness," avg Fitness: ", avgFitness, "Num aval: ", numAvalFitness);
         numGeracoes += 1;
-        if (numAvalFitness > 10000 or maxFitness == 1):
+        if (numAvalFitness > limiteAval or maxFitness  == 1):
             condicaoParada = True;
             displayPop(populationI);
     print("|||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0]);
