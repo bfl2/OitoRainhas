@@ -139,12 +139,14 @@ def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama 
     return filhos;
 
 def selectParents(iniPop):
+    global numAvalFitness;
     parents =[];
     random.shuffle(iniPop);
     for e in iniPop:
         if(len(parents)<5):
             parents.append(e);
     parents = sorted(parents, key=fitness, reverse=True);
+    numAvalFitness-=5;
     parents = parents[:2]; #selecionando os dois melhores invididuos do conjunto de 5 aleatorios.
 
     return parents;
@@ -185,7 +187,7 @@ def crossOver(parents): #### DONE ####
     return filhos;
 
 def mutation(filhos):
-    mutationChance =0.1;
+    mutationChance =0.4;
     filhosM = filhos;
     for e in filhosM:
         seed = random.randint(0, 100);
