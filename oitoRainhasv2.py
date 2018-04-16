@@ -62,8 +62,6 @@ def fitness(indiv):
     global maxFitness 
     numAvalFitness+= 1 
     return fitnessC(indiv)
-
-    return fit 
 def getFitnessAvg(pop):
     fitList =[] 
     global numAvalFitness 
