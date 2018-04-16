@@ -56,7 +56,8 @@ def fitnessC(indiv):
             colisoes += 1 
 
     fit = 1 / (1 + colisoes / 2) 
-    maxFitness = max(maxFitness, fit) 
+    maxFitness = max(maxFitness, fit)
+    return fit
 def fitness(indiv):
     global numAvalFitness 
     global maxFitness 
@@ -66,8 +67,7 @@ def getFitnessAvg(pop):
     fitList =[] 
     global numAvalFitness 
     for e in pop:
-        fitList.append(fitness(e)) 
-        numAvalFitness-=1  ##desconsiderar o calculo de fitness refeito
+        fitList.append(fitnessC(e))
     avg = sum(fitList)/len(fitList) 
     return avg 
 
@@ -84,8 +84,7 @@ def selectParents(iniPop):
     for e in iniPop:
         if(len(parents)<5):
             parents.append(e) 
-    parents = sorted(parents, key=fitness, reverse=True) 
-    numAvalFitness-= len(parents) #Desprezando o calculo de fitness calculados anteriormente
+    parents = sorted(parents, key=fitnessC, reverse=True)
     parents = parents[:2]  #selecionando os dois melhores invididuos do conjunto de 5 aleatorios.
 
     return parents 
@@ -138,8 +137,8 @@ def mutation(filhos):
 def selecaoPop(popI, filhos):
     ## funcao acomoda filhos na populacao e retirar os piores individuos ate que restem 100 individuos na populacao
     global numAvalFitness 
-    popRanked = sorted(popI+filhos, key=fitness) #populacao com 102 individuos ordenados pelo fitness
-    numAvalFitness-=100 # reducao para compensar os fitness recalculados dos 100 individuos da populacao
+    popRanked = sorted(popI+filhos, key=fitnessC) #populacao com 102 individuos ordenados pelo fitness
+    numAvalFitness+=2 # reducao para compensar os fitness recalculados dos 100 individuos da populacao
     popRanked.reverse() 
     popSel = popRanked[:-2] # populacao com a retirada dos 2 piores individuos
     return popSel 
@@ -202,3 +201,5 @@ def main(): # popI -> populacao no formato inteiro
     print("||Avaliacoes ",numAvalFitness,"||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0], " Fitness medio da populacao:", avgFitness) 
     displayChessBoard(populationI[0]) 
     return 
+
+main()
