@@ -90,24 +90,25 @@ def roullete(pop):
         acumulator = 0
         i = 0
         for e in fitnessList:
-            i+=1
+
             if( acumulator >= seed and  acumulator <= seed + e): #
                 slot = pop[i]
                 #print("max:",listSum, " intervalo", seed,"-",seed+e, " acum:",acumulator,slot, " fit: ", e, "index:", i)
                 break
             acumulator += e
+            i += 1
 
     return slot
 
 def selectParents(iniPop):
     global numAvalFitness 
     parents =[] 
-    random.shuffle(iniPop) 
-    for e in iniPop:
-        if(len(parents)<5):
-            parents.append(e) 
-    parents = sorted(parents, key=fitnessC, reverse=True)
-    parents = parents[:2]  #selecionando os dois melhores invididuos do conjunto de 5 aleatorios.
+    while(len(parents)<2):
+        candidate = roullete(iniPop)
+        if(candidate not in parents):
+            parents.append(candidate)
+
+    print("   parents", parents)
 
     return parents 
 def geraIndiv(pai1,pai2,pontoCorte):#inputs e outputs em binario3
@@ -223,3 +224,4 @@ def main(): # popI -> populacao no formato inteiro
     print("||Avaliacoes ",numAvalFitness,"||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0], " Fitness medio da populacao:", avgFitness) 
     displayChessBoard(populationI[0]) 
     return
+main()
