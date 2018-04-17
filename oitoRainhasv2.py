@@ -1,8 +1,9 @@
-import operator 
-import random 
+import operator
+import random
 import numpy 
-from numpy import sum 
+from numpy import sum
 import pygame, sys
+
 from pygame.locals import *
 
 #-------# Nesta versao, a representacao adotada e a de uma lista de numeros inteiros, o codigo nao deve utilizar a representacao anterios do vetor de 24 bits. Funcoes de conversao entre binario e inteiro foram removidas.
@@ -55,7 +56,7 @@ def fitnessC(indiv):
         if (flagM2[e + 7] > 1):
             colisoes += 1 
 
-    fit = 1 / (1 + colisoes / 2) 
+    fit = round(1 / (1 + colisoes / 2),3)
     maxFitness = max(maxFitness, fit)
     return fit
 def fitness(indiv):
@@ -75,7 +76,28 @@ def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama 
     filhos = [] 
     parents = selectParents(popI) 
     filhos = crossOver(parents) 
-    return filhos 
+    return filhos
+
+def roullete(pop):
+    fitnessList =[]
+
+    for e in pop:
+        fitnessList.append(fitnessC(e))
+    listSum = sum(fitnessList)
+    slot = []
+    while(not slot):
+        seed = random.uniform(0, 1) * listSum
+        acumulator = 0
+        i = 0
+        for e in fitnessList:
+            i+=1
+            if( acumulator >= seed and  acumulator <= seed + e): #
+                slot = pop[i]
+                #print("max:",listSum, " intervalo", seed,"-",seed+e, " acum:",acumulator,slot, " fit: ", e, "index:", i)
+                break
+            acumulator += e
+
+    return slot
 
 def selectParents(iniPop):
     global numAvalFitness 
@@ -200,6 +222,4 @@ def main(): # popI -> populacao no formato inteiro
             displayPop(populationI) 
     print("||Avaliacoes ",numAvalFitness,"||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0], " Fitness medio da populacao:", avgFitness) 
     displayChessBoard(populationI[0]) 
-    return 
-
-main()
+    return
