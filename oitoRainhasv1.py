@@ -240,7 +240,7 @@ def displayChessBoard(chessBoard):
 
     return 
 
-def main(sel): ##sel=1 -> maxFitness //sel=0 -> avgFitness ##popB -> populacao no formato binario, popI -> populacao no formato inteiro
+def main(sel, displayCBFlag): ##sel=1 -> maxFitness //sel=0 -> avgFitness ##popB -> populacao no formato binario, popI -> populacao no formato inteiro
     global numAvalFitness
     global maxFitness
     numAvalFitness = 0
@@ -279,7 +279,8 @@ def main(sel): ##sel=1 -> maxFitness //sel=0 -> avgFitness ##popB -> populacao n
 
         
     print("|||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0]) 
-    #displayChessBoard(populationI[0])
+    if(displayCBFlag==1):
+        displayChessBoard(populationI[0])
     parametersDict ={"nAvalList":nAvalList, "maxFitnessList":maxFitnessList, "avgFitnessList":avgFitnessList}
 
     return parametersDict

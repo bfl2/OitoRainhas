@@ -201,7 +201,6 @@ def displayChessBoard(chessBoard):
     return 
 
 def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
-
     global numAvalFitness
     global maxFitness
     numAvalFitness = 0
@@ -213,7 +212,6 @@ def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
     nAvalList = []
     maxFitnessList = []
     avgFitnessList = []
-
     ##Inicializacao da populacao
     seed = seedGen() 
     populationI =  populate(populationSize, seed) 
