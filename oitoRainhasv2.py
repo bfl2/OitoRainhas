@@ -200,13 +200,21 @@ def displayChessBoard(chessBoard):
 
     return 
 
-def main(): # popI -> populacao no formato inteiro
-    ##Inicializacao da populacao
-    global numAvalFitness 
+def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
+
+    global numAvalFitness
+    global maxFitness
+    numAvalFitness = 0
+    maxFitness = 0
     limiteAval = 10000 
     condicaoParada = False 
     populationSize = 100 
-    numGeracoes = 1 
+    numGeracoes = 1
+    nAvalList = []
+    maxFitnessList = []
+    avgFitnessList = []
+
+    ##Inicializacao da populacao
     seed = seedGen() 
     populationI =  populate(populationSize, seed) 
     populationI = sorted(populationI, key=fitness,reverse=True) 
@@ -217,11 +225,15 @@ def main(): # popI -> populacao no formato inteiro
         populationI = selecaoPop(populationI,filhos) 
         avgFitness = getFitnessAvg(populationI) 
         print("   geracao: ", numGeracoes, "max Fitness: ",maxFitness," avg Fitness: ", avgFitness, "Num aval: ", numAvalFitness) 
-        numGeracoes += 1 
-        if (numAvalFitness > limiteAval or maxFitness  == 1):
+        numGeracoes += 1
+        nAvalList.append(numAvalFitness)
+        maxFitnessList.append(maxFitness)
+        avgFitnessList.append(avgFitness)
+        if ((numAvalFitness > limiteAval) or (maxFitness == 1 and sel) or (avgFitness == 1 and not sel)):
             condicaoParada = True 
             displayPop(populationI) 
     print("||Avaliacoes ",numAvalFitness,"||-Individuo com maior fitness encontrado:",fitness(populationI[0]), "-", populationI[0], " Fitness medio da populacao:", avgFitness) 
-    displayChessBoard(populationI[0]) 
+    if(displayCBFlag):
+        displayChessBoard(populationI[0])
+    parametersDict = {"nAvalList": nAvalList, "maxFitnessList": maxFitnessList, "avgFitnessList": avgFitnessList}
     return
-main()
