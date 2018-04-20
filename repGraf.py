@@ -56,9 +56,9 @@ def plotGraphs(repetitions, CondParadaSel, version):
         print(k)
         k+=1
         if(version==1):
-            parameterList = v1.main(CondParadaSel)
+            parameterList = v1.main(CondParadaSel,0)
         if(version==2):
-            parameterList = v2.main(CondParadaSel)
+            parameterList = v2.main(CondParadaSel,0)
 
         nAvalLists.append(parameterList["nAvalList"])
         maxFitnessLists.append( parameterList["maxFitnessList"])
@@ -97,6 +97,6 @@ def plotGraphs(repetitions, CondParadaSel, version):
 
     return
 
-plotGraphs(30,1,1)
+plotGraphs(30,1,2)
 
 #print(getLongestList(a))
