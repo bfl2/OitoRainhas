@@ -94,9 +94,8 @@ def plotGraphs(repetitions, CondParadaSel, version):
     plt.xlabel("Fitness Evaluations")
     plt.show()
 
-
     return
 
-plotGraphs(30,1,2)
+plotGraphs(30,1,1)
 
 #print(getLongestList(a))
