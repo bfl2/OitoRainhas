@@ -39,9 +39,8 @@ def crossOver(parents):
         children.append(cyclic_crossover(parents[1], parents[0]))
 
     else:
-        if chance < 9:
-            children.append(parents[0])
-            children.append(parents[1])
+        children.append(parents[0])
+        children.append(parents[1])
 
     return children
 
