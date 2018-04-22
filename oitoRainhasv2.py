@@ -75,7 +75,8 @@ def getFitnessAvg(pop):
 def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama funcoes de selecao de pais, crossover e mutacao
     filhos = [] 
     parents = selectParents(popI) 
-    filhos = crossOver(parents) 
+    filhos = crossOver(parents)
+    filhos = mutation(filhos)
     return filhos
 
 def roullete(pop):
@@ -147,7 +148,7 @@ def crossOver(parents):
     return filhos 
 
 def mutation(filhos):
-    mutationChance =0.1 
+    mutationChance =0.1
     filhosM = filhos 
     for e in filhosM:
         seed = random.randint(0, 100) 
@@ -234,4 +235,4 @@ def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
     if(displayCBFlag):
         displayChessBoard(populationI[0])
     parametersDict = {"nAvalList": nAvalList, "maxFitnessList": maxFitnessList, "avgFitnessList": avgFitnessList}
-    return
+    return parametersDict
