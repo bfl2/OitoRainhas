@@ -1,5 +1,6 @@
 import operator
 import random
+from random import randint
 import numpy 
 from numpy import sum
 import pygame, sys
@@ -131,21 +132,69 @@ def geraIndiv(pai1,pai2,pontoCorte):#inputs e outputs em binario3
 
     return indiv 
 
-def crossOver(parents):
-    crossChance = 0.9 
-    filhos =[] 
-    seed = random.randint(0,99) 
+def crossOverC(parents):
+    crossChance = 0.9
+    filhos =[]
+    seed = random.randint(0,99)
     if(seed<crossChance*100):
-        pontoCorte = random.randint(1,6) 
-        f1 = geraIndiv(parents[0],parents[1], pontoCorte) 
-        f2 = geraIndiv(parents[1], parents[0], pontoCorte) 
-        filhos.append(f1) 
-        filhos.append(f2) 
+        pontoCorte = random.randint(1,6)
+        f1 = geraIndiv(parents[0],parents[1], pontoCorte)
+        f2 = geraIndiv(parents[1], parents[0], pontoCorte)
+        filhos.append(f1)
+        filhos.append(f2)
 
     else: ### Quando nao ha crossover, os filhos sao os proprios pais
-        filhos = parents 
+        filhos = parents
 
-    return filhos 
+    return filhos
+
+def crossOver(parents):
+
+    chance = randint(0, 9)
+    children = []
+
+    #   Return the child
+    def cyclic_crossover(parent_0, parent_1):
+
+        visitation_list = set({})
+        p0 = parent_0[randint(0, 7)]
+        visitation_list.add(p0)
+
+        cycle = False
+
+        child = [-1] * len(parent_1)
+
+        #   Search a cycle
+        while not cycle:
+
+            p1 = parent_1[p0]
+            p0 = parent_0[p1]
+
+            if p0 not in visitation_list:
+                visitation_list.add(p0)
+            else:
+                cycle = True
+
+        for i in visitation_list:
+            child[parent_0.index(i)] = i
+
+        for i in child:
+            if i == -1:
+                index = child.index(-1)
+                child[index] = parent_1[index]
+
+        return child
+
+    #   If the crossover chance is satisfied then call the function, else return the parents
+    if chance < 9:
+        children.append(cyclic_crossover(parents[0], parents[1]))
+        children.append(cyclic_crossover(parents[1], parents[0]))
+
+    else:
+        children.append(parents[0])
+        children.append(parents[1])
+
+    return children
 
 def mutation(filhos):
     mutationChance =0.1
@@ -208,7 +257,7 @@ def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
     maxFitness = 0
     limiteAval = 10000 
     condicaoParada = False 
-    populationSize = 100 
+    populationSize = 50
     numGeracoes = 1
     nAvalList = []
     maxFitnessList = []
