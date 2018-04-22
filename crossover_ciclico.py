@@ -1,6 +1,3 @@
-from random import randint
-
-
 #   Receives a list of parents
 def crossOver(parents):
 
@@ -11,11 +8,12 @@ def crossOver(parents):
     def cyclic_crossover(parent_0, parent_1):
 
         visitation_list = set({})
-        p0 = parent_0[0]
+        p0 = parent_0[randint(0, 7)]
         visitation_list.add(p0)
 
         cycle = False
-        child = parent_1[:]
+
+        child = [-1] * len(parent_1)
 
         #   Search a cycle
         while not cycle:
@@ -23,13 +21,18 @@ def crossOver(parents):
             p1 = parent_1[p0]
             p0 = parent_0[p1]
 
-            if p0 not in visitation_list or p1 not in visitation_list:
+            if p0 not in visitation_list:
                 visitation_list.add(p0)
             else:
                 cycle = True
 
         for i in visitation_list:
             child[parent_0.index(i)] = i
+
+        for i in child:
+            if i == -1:
+                index = child.index(-1)
+                child[index] = parent_1[index]
 
         return child
 
@@ -43,11 +46,3 @@ def crossOver(parents):
         children.append(parents[1])
 
     return children
-
-
-#   Testing algorithm
-if __name__ == '__main__':
-
-    print(crossOver([[0, 1, 2, 3, 4, 5, 6], [4, 3, 5, 6, 1, 2, 0]]))
-    #   slide example
-    print(crossOver([[0, 1, 2, 3, 4, 5, 6, 7, 8], [8, 2, 6, 7, 1, 5, 4, 0, 3]]))
