@@ -73,22 +73,25 @@ def plotGraphs(repetitions, CondParadaSel, version):
     y = avgFitnesslAvg
     e = avgFitnessStd
 
+    plt.subplot(2,1,1)
+    plt.subplots_adjust(hspace=0.5, wspace=0.5)
     plt.errorbar(x,y,e,ecolor="red")
-    titulo = "Média e desvio padrão do fitness médio da versão 1 (" + str (repetitions) + " repetições)"
+    titulo = "Média e desvio padrão do fitness médio da versão"+str(version) +"(" + str(repetitions) + " repetições)"
     plt.title(titulo)
     text = "Numero medio de avaliacoes: "+str(round(nAvalAvg,2))+"\n Desvio Padrao: "+ str(round(nAvalStd,2))
     plt.text(330,0.4,text)
     plt.ylabel("Average Fitness")
     plt.xlabel("Fitness Evaluations")
-    plt.show()
+
 
     [maxFitnesslAvg, maxFitnessStd] = avgAndStd(maxFitnessLists)
     x = nAvalMax
     y = maxFitnesslAvg
     e = maxFitnessStd
 
+    plt.subplot(2, 1, 2)
     plt.errorbar(x, y, e, ecolor="red")
-    titulo = "Média e desvio padrão do fitness máximo da versão 1 (" + str(repetitions) + " repetições)"
+    titulo = "Média e desvio padrão do fitness máximo da versão"+str(version) +"(" + str(repetitions) + " repetições)"
     plt.title(titulo)
     plt.ylabel("Max Fitness")
     plt.xlabel("Fitness Evaluations")
@@ -96,6 +99,6 @@ def plotGraphs(repetitions, CondParadaSel, version):
 
     return
 
-plotGraphs(30,1,1)
+plotGraphs(30,1,2)
 
 #print(getLongestList(a))
