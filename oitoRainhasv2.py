@@ -31,9 +31,7 @@ def populate(popSize, seed):
 def displayPop(popI):
     global numAvalFitness 
     for e in popI:
-        print ("Indiv",popI.index(e)+1,":",e, "fit: ", fitness(e)) 
-
-    numAvalFitness -= len(popI)   # desprezado o calculo de fitness, pois este esta sendo recalculado
+        print ("Indiv",popI.index(e)+1,":",e, "fit: ", fitnessC(e))
 
     return 
 
@@ -59,6 +57,8 @@ def fitnessC(indiv):
 
     fit = round(1 / (1 + colisoes / 2),3)
     maxFitness = max(maxFitness, fit)
+    if(indiv == []):
+        fit = 0
     return fit
 def fitness(indiv):
     global numAvalFitness 
@@ -207,14 +207,26 @@ def mutation(filhos):
 
     return filhosM 
 
-def selecaoPop(popI, filhos):
+def selecaoPopSub(popI):
     ## funcao acomoda filhos na populacao e retirar os piores individuos ate que restem 100 individuos na populacao
-    global numAvalFitness 
+    global numAvalFitness
+    filhos = geraFilhos(popI)
     popRanked = sorted(popI+filhos, key=fitnessC) #populacao com 102 individuos ordenados pelo fitness
-    numAvalFitness+=2 # reducao para compensar os fitness recalculados dos 100 individuos da populacao
+    numAvalFitness+=2 # 2 novos fitness calculados
     popRanked.reverse() 
     popSel = popRanked[:-2] # populacao com a retirada dos 2 piores individuos
     return popSel 
+
+def selecaoPopGer(pop):
+    percFilhos = 1.00
+    nextGen =[]
+    while(len(nextGen) < len(pop)*percFilhos):
+        filhos = geraFilhos(pop)
+        nextGen.append(filhos[0])
+        nextGen.append(filhos[1])
+
+    print("-----NextGen",nextGen)
+    return nextGen
 
 def displayChessBoard(chessBoard):
     WHITE = [255, 255, 255] 
@@ -250,9 +262,10 @@ def displayChessBoard(chessBoard):
 
     return 
 
-def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
+def main(sel, displayCBFlag): # popI -> populacao no formato inteiro #sel -> condicao de parada: 0: Max fitness=1, 1: avg fitness=1,
     global numAvalFitness
     global maxFitness
+    tipoSelecao = "Sub"
     numAvalFitness = 0
     maxFitness = 0
     limiteAval = 10000 
@@ -269,8 +282,13 @@ def main(sel, displayCBFlag): # popI -> populacao no formato inteiro
     displayPop(populationI) 
     #Etapa evolutiva
     while (condicaoParada != True):
-        filhos = geraFilhos(populationI) 
-        populationI = selecaoPop(populationI,filhos) 
+
+        if(tipoSelecao == "Sub" ):
+            populationI = selecaoPopSub(populationI)
+        if(tipoSelecao == "Ger"):
+            populationI = selecaoPopGer(populationI)
+            populationI = sorted(populationI, key=fitness, reverse=True)
+
         avgFitness = getFitnessAvg(populationI) 
         print("   geracao: ", numGeracoes, "max Fitness: ",maxFitness," avg Fitness: ", avgFitness, "Num aval: ", numAvalFitness) 
         numGeracoes += 1
