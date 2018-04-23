@@ -73,10 +73,10 @@ def plotGraphs(repetitions, CondParadaSel, version):
     y = avgFitnesslAvg
     e = avgFitnessStd
 
-    plt.subplot(2,1,1)
-    plt.subplots_adjust(hspace=0.5, wspace=0.5)
+    plt.subplot(2,2,version)
+    plt.subplots_adjust(hspace=0.5)
     plt.errorbar(x,y,e,ecolor="red")
-    titulo = "Média e desvio padrão do fitness médio da versão"+str(version) +"(" + str(repetitions) + " repetições)"
+    titulo = "Média e desvio padrão do fitness médio da versão "+str(version) +"(" + str(repetitions) + " repetições)"
     plt.title(titulo)
     text = "Numero medio de avaliacoes: "+str(round(nAvalAvg,2))+"\n Desvio Padrao: "+ str(round(nAvalStd,2))
     plt.text(330,0.4,text)
@@ -89,16 +89,30 @@ def plotGraphs(repetitions, CondParadaSel, version):
     y = maxFitnesslAvg
     e = maxFitnessStd
 
-    plt.subplot(2, 1, 2)
+    plt.subplot(2, 2, version+2)
     plt.errorbar(x, y, e, ecolor="red")
-    titulo = "Média e desvio padrão do fitness máximo da versão"+str(version) +"(" + str(repetitions) + " repetições)"
+    titulo = "Média e desvio padrão do fitness máximo da versão "+str(version) +"(" + str(repetitions) + " repetições)"
     plt.title(titulo)
     plt.ylabel("Max Fitness")
     plt.xlabel("Fitness Evaluations")
-    plt.show()
+    if(CondParadaSel==1):
+        plt.suptitle("Condição de parada: Fitness Máximo = 1")
+    if(CondParadaSel==0):
+        plt.suptitle("Condição de parada: Fitness Médio = 1")
 
     return
 
-plotGraphs(30,1,2)
+def compareFitMax(): #compara as versoes 1 e 2 com condicao de saida de Fitness max = 1
+    plotGraphs(30, 1, 1)
+    plotGraphs(30, 1, 2)
+    plt.show()
+    return
+def compareFitAvg(): #compara as versoes 1 e 2 com condicao de saida de Fitness medio = 1
+    plotGraphs(30, 0, 1)
+    plotGraphs(30, 0, 2)
+    plt.show()
+    return
+
+compareFitMax()
 
 #print(getLongestList(a))
