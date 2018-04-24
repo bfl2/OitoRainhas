@@ -80,11 +80,11 @@ def getFitnessAvg(pop):
     avg = sum(fitList)/len(fitList)
     return avg
 
-def geraFilhos(popI): #funcao que roda a iteracao do algoritmo evolutivo, chama funcoes de selecao de pais, crossover e mutacao
+def geraFilhos(popI,avgFit): #funcao que roda a iteracao do algoritmo evolutivo, chama funcoes de selecao de pais, crossover e mutacao
     filhos = []
     parents = selectParents(popI)
     filhos = crossOver(parents)
-    filhos = mutation(filhos)
+    filhos = mutation(filhos,avgFit)
     return filhos
 
 def roullete(pop):
@@ -140,8 +140,42 @@ def geraIndiv(pai1,pai2,pontoCorte):#inputs e outputs em binario3
     return indiv
 
 
+def crossOverC(parents):
+    aux = [0] * 8
+    filhos = []
+    cycle = []
+    cycles = []
+
+    pai1 = parents[0][:]
+    pai2 = parents[1][:]
+
+    for i in range(0, len(aux)):
+
+        if aux[i] == 0:
+            pos = i
+            index = -1
+
+            while index != i:
+                index = pai1.index(pai2[pos])
+                aux[index] = 1
+                pos = index
+                cycle.append(index)
+
+            cycles.append(cycle)
+            cycle = []
+
+    filhos.append(pai1)
+    filhos.append(pai2)
+
+    for i in range(0, len(cycles)):
+        if (i + 1) % 2 == 0:
+            for j in range(0, len(cycles[i])):
+                filhos[0][cycles[i][j]], filhos[1][cycles[i][j]] = filhos[1][cycles[i][j]], filhos[0][cycles[i][j]]
+
+    return filhos
+
 def crossOver(parents):
-    crossChance = 0.9
+    crossChance = 1
     filhos =[]
     seed = random.randint(0,99)
     if(seed<crossChance*100):
@@ -156,37 +190,52 @@ def crossOver(parents):
 
     return filhos
 
-def mutation(filhos):
-    mutationChance =0.4
+
+def mutationI(individuo, avgFit):
+    cut1 = cut2 = random.randint(1, 6)
+
+    while cut1 == cut2:
+        cut2 = random.randint(1, 6)
+
+    if cut1 > cut2:
+        cut1, cut2 = cut2, cut1
+
+    individuoNovo = individuo[0:cut1 + 1] + [individuo[cut2]] + individuo[cut1 + 1: cut2] + individuo[cut2 + 1: 8]
+
+    return individuoNovo
+
+def mutation(filhos,avgFit):
+    mutationChance = 0.5
     filhosM = filhos
     for e in filhosM:
         seed = random.randint(0, 100)
         if (seed < mutationChance * 100):
             ix = random.sample(range(0,7),2)
             e[ix[0]],e[ix[1]] = e[ix[1]],e[ix[0]]  #troca de numeros entre as colunas
-    for e in filhosM:
-        seed = random.randint(0, 100)
-        if (seed < mutationChance * 100):
-            ix = random.sample(range(0, 7), 2)
-            e[ix[0]], e[ix[1]] = e[ix[1]], e[ix[0]]  # troca de numeros entre as colunas
+    if(maxFitness<1):
+        for e in filhosM:
+            seed = random.randint(0, 100)
+            if (seed < mutationChance * 100):
+                ix = random.sample(range(0, 7), 2)
+                e[ix[0]], e[ix[1]] = e[ix[1]], e[ix[0]]  # troca de numeros entre as colunas
 
     return filhosM
 
-def selecaoPopSub(popI):
+def selecaoPopSub(popI,avgFit):
     ## funcao acomoda filhos na populacao e retirar os piores individuos ate que restem 100 individuos na populacao
     global numAvalFitness
-    filhos = geraFilhos(popI)
+    filhos = geraFilhos(popI,avgFit)
     popRanked = sorted(popI+filhos, key=fitnessC) #populacao com 102 individuos ordenados pelo fitness
     numAvalFitness+=2 # 2 novos fitness calculados
     popRanked.reverse()
     popSel = popRanked[:-2] # populacao com a retirada dos 2 piores individuos
     return popSel
 
-def selecaoPopGer(pop):
+def selecaoPopGer(pop, avgFit):
     percFilhos = 1.00
     nextGen =[]
     while(len(nextGen) < len(pop)*percFilhos):
-        filhos = geraFilhos(pop)
+        filhos = geraFilhos(pop,avgFit)
         nextGen.append(filhos[0])
         nextGen.append(filhos[1])
 
@@ -230,12 +279,13 @@ def displayChessBoard(chessBoard):
 def main(sel, displayCBFlag): # popI -> populacao no formato inteiro #sel -> condicao de parada: 0: Max fitness=1, 1: avg fitness=1,
     global numAvalFitness
     global maxFitness
+    avgFitness = 0
     tipoSelecao = "Sub"
     numAvalFitness = 0
     maxFitness = 0
     limiteAval = 10000
     condicaoParada = False
-    populationSize = 50
+    populationSize = 30
     numGeracoes = 1
     nAvalList = []
     maxFitnessList = []
@@ -249,9 +299,9 @@ def main(sel, displayCBFlag): # popI -> populacao no formato inteiro #sel -> con
     while (condicaoParada != True):
 
         if(tipoSelecao == "Sub" ):
-            populationI = selecaoPopSub(populationI)
+            populationI = selecaoPopSub(populationI,avgFitness)
         if(tipoSelecao == "Ger"):
-            populationI = selecaoPopGer(populationI)
+            populationI = selecaoPopGer(populationI,avgFitness)
             populationI = sorted(populationI, key=fitness, reverse=True)
 
         avgFitness = getFitnessAvg(populationI) 

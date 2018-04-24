@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9002676e-e6f7-4ce7-830b-dff7a96e22e9" name="Default" comment="Funcao de mutacao alterada. Populacao setada em 50. funcao">
-      <change afterPath="$PROJECT_DIR$/oitoRainhasv2.py" afterDir="false" />
+    <list default="true" id="9002676e-e6f7-4ce7-830b-dff7a96e22e9" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oitoRainhasv1.py" beforeDir="false" afterPath="$PROJECT_DIR$/oitoRainhasv1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oitoRainhasv2.py" beforeDir="false" afterPath="$PROJECT_DIR$/oitoRainhasv2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/repGraf.py" beforeDir="false" afterPath="$PROJECT_DIR$/repGraf.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,11 +18,29 @@
       <file leaf-file-name="repGraf.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/repGraf.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="116" column="1" selection-start-line="116" selection-start-column="1" selection-end-line="116" selection-end-column="1" />
+            <state relative-caret-position="482">
+              <caret line="117" column="1" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="1" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mut.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mut.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="259" selection-start-line="259" selection-end-line="270" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ciclic.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ciclic.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="35" column="17" lean-forward="true" selection-start-line="2" selection-end-line="35" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -40,8 +57,8 @@
       <file leaf-file-name="oitoRainhasv2.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/oitoRainhasv2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
+            <state relative-caret-position="302">
+              <caret line="297" column="20" lean-forward="true" selection-start-line="297" selection-start-column="20" selection-end-line="297" selection-end-column="20" />
               <folding>
                 <element signature="e#6434#7414#0" />
               </folding>
@@ -83,8 +100,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/../testes/gui.py" />
-        <option value="$PROJECT_DIR$/repGraf.py" />
         <option value="$PROJECT_DIR$/oitoRainhasv1.py" />
+        <option value="$PROJECT_DIR$/ciclic.py" />
+        <option value="$PROJECT_DIR$/mut.py" />
+        <option value="$PROJECT_DIR$/repGraf.py" />
         <option value="$PROJECT_DIR$/oitoRainhasv2.py" />
       </list>
     </option>
@@ -284,14 +303,21 @@
       <option name="project" value="LOCAL" />
       <updated>1524511452245</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Funcao de mutacao alterada. Populacao setada em 50. funcao de Fitness considerando colisoes verticais">
+      <created>1524541260380</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1524541260380</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="61" y="-8" width="1867" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.17720151" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17720151" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50208336" side_tool="true" weight="0.32946146" />
@@ -357,7 +383,8 @@
     <MESSAGE value="melhor agrupamento dos graficos" />
     <MESSAGE value="graficos organizados em 4 subplots. Mais detalhes adicionados" />
     <MESSAGE value="Adicionada opçao para metodo de selecao de sobreviventes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adicionada opçao para metodo de selecao de sobreviventes" />
+    <MESSAGE value="Funcao de mutacao alterada. Populacao setada em 50. funcao de Fitness considerando colisoes verticais" />
+    <option name="LAST_COMMIT_MESSAGE" value="Funcao de mutacao alterada. Populacao setada em 50. funcao de Fitness considerando colisoes verticais" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -365,14 +392,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../LNExample/LNExample.py" />
-    <entry file="file://$PROJECT_DIR$/../testes/gui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crossover_ciclico.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-45" />
@@ -681,6 +700,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ciclic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="35" column="17" lean-forward="true" selection-start-line="2" selection-end-line="35" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mut.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="259" selection-start-line="259" selection-end-line="270" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/oitoRainhasv1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -690,8 +723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/repGraf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="116" column="1" selection-start-line="116" selection-start-column="1" selection-end-line="116" selection-end-column="1" />
+        <state relative-caret-position="482">
+          <caret line="117" column="1" selection-start-line="117" selection-start-column="1" selection-end-line="117" selection-end-column="1" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -700,8 +733,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/oitoRainhasv2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="33" />
+        <state relative-caret-position="302">
+          <caret line="297" column="20" lean-forward="true" selection-start-line="297" selection-start-column="20" selection-end-line="297" selection-end-column="20" />
           <folding>
             <element signature="e#6434#7414#0" />
           </folding>
