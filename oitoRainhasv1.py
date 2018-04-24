@@ -111,8 +111,16 @@ def fitness(indiv):
     for e in m2:
         flagM2[e + 7] += 1 
         if (flagM2[e + 7] > 1):
-            colisoes += 1 
+            colisoes += 1
 
+    for t in range(0, 8):
+        count = 0
+        for k in indiv:
+            if (t == k):
+                count += 1
+                if (count > 1):
+                    colisoes += 1
+                    print("duplicata ", indiv)
     fit = 1 / (1 + colisoes / 2) 
     maxFitness = max(maxFitness, fit) 
 

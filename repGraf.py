@@ -103,8 +103,8 @@ def plotGraphs(repetitions, CondParadaSel, version):
     return
 
 def compareFitMax(): #compara as versoes 1 e 2 com condicao de saida de Fitness max = 1
-    plotGraphs(10, 1, 1)
-    plotGraphs(10, 1, 2)
+    plotGraphs(30, 1, 1)
+    plotGraphs(30, 1, 2)
     plt.show()
     return
 
@@ -114,7 +114,7 @@ def compareFitAvg(): #compara as versoes 1 e 2 com condicao de saida de Fitness 
     plt.show()
     return
 
-compareFitMax()
-#compareFitAvg()
+#compareFitMax()
+compareFitAvg()
 
 #print(getLongestList(a))
