@@ -66,7 +66,7 @@ def plotGraphs(repetitions, CondParadaSel, version):
     nAvall = avalL(nAvalLists)
     nAvalAvg = sum(nAvall)/len(nAvall)
     nAvalStd = np.std(nAvall)
-
+    popSize = len(maxFitnessLists[1])
     nAvalMax = getLongestList(nAvalLists)
     [avgFitnesslAvg, avgFitnessStd] = avgAndStd(avgFitnessLists)
     x = nAvalMax
@@ -74,9 +74,9 @@ def plotGraphs(repetitions, CondParadaSel, version):
     e = avgFitnessStd
 
     plt.subplot(2,2,version)
-    plt.subplots_adjust(hspace=0.5)
+    plt.subplots_adjust(hspace=0.2)
     plt.errorbar(x,y,e,ecolor="red")
-    titulo = "Média e desvio padrão do fitness médio da versão "+str(version) +"(" + str(repetitions) + " repetições)"
+    titulo = "Média e desvio padrão do fitness médio da versão "+str(version) +"(" + str(repetitions) + " repetições )"
     plt.title(titulo)
     text = "Numero medio de avaliacoes: "+str(round(nAvalAvg,2))+"\n Desvio Padrao: "+ str(round(nAvalStd,2))
     plt.text(330,0.4,text)
@@ -103,16 +103,18 @@ def plotGraphs(repetitions, CondParadaSel, version):
     return
 
 def compareFitMax(): #compara as versoes 1 e 2 com condicao de saida de Fitness max = 1
-    plotGraphs(30, 1, 1)
-    plotGraphs(30, 1, 2)
+    plotGraphs(10, 1, 1)
+    plotGraphs(10, 1, 2)
     plt.show()
     return
+
 def compareFitAvg(): #compara as versoes 1 e 2 com condicao de saida de Fitness medio = 1
-    plotGraphs(30, 0, 1)
-    plotGraphs(30, 0, 2)
+    plotGraphs(10, 0, 1)
+    plotGraphs(10, 0, 2)
     plt.show()
     return
 
 compareFitMax()
+#compareFitAvg()
 
 #print(getLongestList(a))
